@@ -1,38 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { MenuForm, Container, Options } from './styles'
+import { Container } from './styles'
+
+interface User {
+  email: string
+  password: string
+}
 
 const login: React.FC = () => {
-  const handleChange = async () => {
-    console.log('aqui')
+  const [user, setUser] = useState<User>({ email: '', password: '' })
+
+  // subimit form
+  const SubmitForm = async () => {
+    console.log(user)
+  }
+
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({
+      ...user,
+      [event.target.name]: event.target.value
+    })
   }
 
   return (
     <Container>
-      <h1>Login</h1>
+      <div className="container">
+        <div className="card card-1">
+          <div id="demo" className="carousel slide" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <div className="row">
+                  <div className="form__group field">
+                    <input
+                      type="email"
+                      className="form__field"
+                      placeholder="email"
+                      name="email"
+                      id="email"
+                      onChange={handleChange}
+                      required
+                    />
+                    <label htmlFor="email" className="form__label">
+                      email
+                    </label>
+                  </div>
 
-      <MenuForm>
-        <input
-          type="email"
-          placeholder="email pessoal"
-          name="email"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          placeholder="senha"
-          name="senha"
-          onChange={handleChange}
-        />
+                  <div className="form__group field">
+                    <input
+                      type="password"
+                      className="form__field"
+                      placeholder="password"
+                      name="password"
+                      id="password"
+                      onChange={handleChange}
+                      required
+                    />
+                    <label htmlFor="password" className="form__label">
+                      password
+                    </label>
+                  </div>
 
-        <button type="submit">Login</button>
-      </MenuForm>
-
-      <Options>
-        <a>cadastrar</a>
-
-        <a>forgot</a>
-      </Options>
+                  <div className="css-img-button">
+                    <div className="col-6 justify-content-right">
+                      <img
+                        className="img-fluid"
+                        src="https://img.icons8.com/plasticine/100/000000/sun.png"
+                      />
+                    </div>
+                    <div>
+                      <button onClick={SubmitForm} className="login-btn">
+                        Login
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </Container>
   )
 }

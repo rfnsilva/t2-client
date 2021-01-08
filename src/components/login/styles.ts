@@ -1,54 +1,259 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  h1 {
-    color: ${props => props.theme.colors.primary};
-  }
-  @media (max-width: 600px) {
-    margin: 0 10px;
-  }
-`
+  justify-content: center;
+  background-color: #9bcfd4;
+  color: rgb(105, 104, 104);
+  font-family: sans-serif;
 
-export const MenuForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 419px;
-  @media (max-width: 500px) {
-    width: 337px;
+  //CSS Card
+
+  .container {
+    width: 600px;
   }
-  padding: 20px 20px 0px;
-  > input {
-    outline: none;
-    margin-bottom: 24px;
-    border-radius: 5px;
-    padding: 18px 13px;
-    border: none;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25), 0px 1px 3px rgba(0, 0, 0, 0.02);
+
+  .card {
+    padding: 1.2rem 3rem 1rem 3rem;
+    margin: 1rem;
+    border-radius: 1.5rem;
+    border-color: rgba(238, 237, 237, 0.438);
+    box-shadow: 5px 8px 10px #80808033;
   }
-  > button {
-    outline: none;
-    margin: 18px auto;
-    padding: 10px 24px;
-    width: 160px;
-    background-color: ${props => props.theme.colors.primary};
-    color: #fff;
-    border: none;
+
+  @media (max-width: 767px) {
+    .card {
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+  }
+
+  .temp {
+    font-size: 5rem;
+    color: rgb(57, 57, 58);
+  }
+
+  .card-1 {
+    background: linear-gradient(
+      to right,
+      #ffffff 50%,
+      rgba(241, 224, 190, 0.507)
+    );
+  }
+
+  @media (max-width: 767px) {
+    .temp {
+      font-size: 3rem;
+    }
+  }
+
+  .location {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 767px) {
+    .location {
+      font-size: 0.75rem;
+    }
+  }
+
+  .img-fluid {
+    display: flex;
+    align-items: center;
+    -webkit-user-drag: none;
+  }
+
+  .row2 .img-fluid {
+    margin: 10% 0;
+    opacity: 0.5;
+    width: 40%;
+  }
+
+  .card-2 .row {
+    justify-content: center;
+  }
+
+  .card-3 .row {
+    justify-content: center;
+  }
+
+  .row1 {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: black;
+  }
+
+  .row3 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: black;
+  }
+
+  @media (max-width: 400px) {
+    .row3 {
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: black;
+    }
+    .container {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .row3 {
+      font-size: 0.6rem;
+      font-weight: bold;
+      color: black;
+    }
+  }
+
+  .row4 {
+    font-size: 0.6rem;
+    color: rgb(196, 196, 196);
+    margin: 5% 0 2.5rem;
+  }
+
+  .card-3 .row3 {
+    margin: 5% 0 2.5rem;
+  }
+
+  .col {
+    overflow: visible;
+  }
+
+  .row {
+    overflow: visible;
+  }
+
+  //CSS Input
+
+  .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    background-color: rgb(208 208 208 / 17%);
+    border-radius: 12px;
+  }
+
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .form__label {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+  }
+
+  .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+  }
+
+  .form__field:focus {
+    ~ .form__label {
+      position: absolute;
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: $primary;
+      font-weight: 700;
+    }
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary, $secondary);
+    border-image-slice: 1;
+  }
+  /* reset input */
+  .form__field {
+    &:required,
+    &:invalid {
+      box-shadow: none;
+    }
+  }
+
+  .css-img-button {
+    display: flex;
+    margin-top: 38px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  //CSS Button
+  .login-btn {
+    font-family: Hack, monospace;
+    background: #9bcfd4;
+    color: #1d1d1d;
     cursor: pointer;
-  }
-`
+    font-size: 2em;
+    padding: 1.5rem;
+    border: 0;
+    transition: all 0.5s;
+    border-radius: 10px;
+    width: 100%;
+    position: relative;
+    outline: none;
 
-export const Options = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  > a {
-    color: ${props => props.theme.colors.primary};
-    text-decoration: none;
+    &::after {
+      content: '\f2f6';
+      font-family: 'Font Awesome 5 Pro';
+      font-weight: 400;
+      position: absolute;
+      left: 80%;
+      top: 54%;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+      background: #2b2bff;
+      transition: all 0.5s;
+      border-radius: 10px;
+      box-shadow: 0px 6px 15px #0000ff61;
+      padding: 1.5rem 3rem 1.5rem 1.5rem;
+      color: #ffffff;
+
+      &::after {
+        opacity: 1;
+        transition: all 0.5s;
+        color: #ffffff;
+      }
+    }
+  }
+
+  @media (max-width: 380px) {
+    .login-btn {
+      width: 143px;
+    }
+  }
+
+  @media (max-width: 283px) {
+    .login-btn {
+      width: 115px;
+      font-size: 1.5rem;
+    }
   }
 `
