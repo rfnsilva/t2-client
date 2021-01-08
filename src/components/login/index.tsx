@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
+
+import AuthContext from '../../contexts/auth'
 
 import { Container } from './styles'
 
@@ -10,9 +13,16 @@ interface User {
 const login: React.FC = () => {
   const [user, setUser] = useState<User>({ email: '', password: '' })
 
+  const { signIn } = useContext(AuthContext)
+  const history = useHistory()
+
   // subimit form
   const SubmitForm = async () => {
-    console.log(user)
+    const response = await signIn(user)
+
+    if (response !== null) {
+      return history.push('/home')
+    }
   }
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
