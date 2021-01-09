@@ -8,9 +8,9 @@ export default createGlobalStyle`
   }
   html, body, #root {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     font: 400 16px Roboto, sans-serif;
-    background: #010101;
+    background: #9bcfd4;
     color: #fff;
   }
   *, button, input {

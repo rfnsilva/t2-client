@@ -1,15 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import {
-  Container,
-  Icon,
-  CloseIcon,
-  Wrapper,
-  Menu,
-  MenuLink,
-  MenuBtn,
-  MenuBtnWrapper
-} from './styles'
+import AuthContext from '../../contexts/auth'
+
+import { Container, Icon, CloseIcon, Wrapper, Menu, MenuLink } from './styles'
 
 export interface Props {
   isOpen?: boolean
@@ -17,6 +10,11 @@ export interface Props {
 }
 
 const menuToggle: React.FC<Props> = ({ isOpen, toggle }) => {
+  const { signOut } = useContext(AuthContext)
+
+  const signOutSubmit = () => {
+    signOut()
+  }
   return (
     <Container isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -25,12 +23,10 @@ const menuToggle: React.FC<Props> = ({ isOpen, toggle }) => {
 
       <Wrapper>
         <Menu>
-          <MenuLink href="#">logout</MenuLink>
+          <MenuLink onClick={signOutSubmit} href="#">
+            signOut
+          </MenuLink>
         </Menu>
-
-        <MenuBtnWrapper>
-          <MenuBtn>Sign In</MenuBtn>
-        </MenuBtnWrapper>
       </Wrapper>
     </Container>
   )

@@ -19,6 +19,7 @@ interface AuthContextData {
   token: IToken
   user: IUser | null
   signIn(user: IUser): Promise<IUser | null>
+  signOut(): void
 }
 
 // criando context com tipo da interface acima
@@ -55,13 +56,19 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     return response.data.user
   }
+
+  async function signOut() {
+    localStorage.clear()
+  }
+
   return (
     <AuthContext.Provider
       value={{
         user,
         token,
         signed: !!user,
-        signIn
+        signIn,
+        signOut
       }}
     >
       {children}

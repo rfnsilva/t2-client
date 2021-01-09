@@ -135,6 +135,7 @@ export const Container = styled.div`
     margin-top: 10px;
     background-color: rgb(208 208 208 / 17%);
     border-radius: 12px;
+    width: 100%;
   }
 
   .form__field {
@@ -148,6 +149,7 @@ export const Container = styled.div`
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
+    margin-left: 20px;
 
     &::placeholder {
       color: transparent;
@@ -167,6 +169,7 @@ export const Container = styled.div`
     transition: 0.2s;
     font-size: 1rem;
     color: $gray;
+    margin-left: 20px;
   }
 
   .form__field:focus {
@@ -198,13 +201,14 @@ export const Container = styled.div`
     margin-top: 38px;
     justify-content: space-between;
     align-items: center;
+    width: 97%;
   }
 
   //CSS Button
   .login-btn {
     font-family: Hack, monospace;
-    background: #9bcfd4;
-    color: #1d1d1d;
+    background: #7bc3ca;
+    color: #fff;
     cursor: pointer;
     font-size: 2em;
     padding: 1.5rem;
@@ -215,45 +219,33 @@ export const Container = styled.div`
     position: relative;
     outline: none;
 
-    &::after {
-      content: '\f2f6';
-      font-family: 'Font Awesome 5 Pro';
-      font-weight: 400;
-      position: absolute;
-      left: 80%;
-      top: 54%;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-    }
-
     &:hover {
-      background: #2b2bff;
+      background: #4f9fa7;
       transition: all 0.5s;
       border-radius: 10px;
-      box-shadow: 0px 6px 15px #0000ff61;
-      padding: 1.5rem 3rem 1.5rem 1.5rem;
       color: #ffffff;
-
-      &::after {
-        opacity: 1;
-        transition: all 0.5s;
-        color: #ffffff;
-      }
     }
   }
 
   @media (max-width: 380px) {
     .login-btn {
-      width: 143px;
+      width: 121px;
     }
   }
 
   @media (max-width: 283px) {
     .login-btn {
-      width: 115px;
+      font-size: 1.3rem !important;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .login-btn {
       font-size: 1.5rem;
+    }
+
+    .css-img-button {
+      width: 88%;
     }
   }
 `

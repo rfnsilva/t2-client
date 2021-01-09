@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FaBars } from 'react-icons/fa'
+
 import MenuToggle from '../menuToggle'
+
+import AuthContext from '../../contexts/auth'
 
 import {
   Wrapper,
@@ -13,6 +16,7 @@ import {
 } from './styles'
 
 const navbar: React.FC = () => {
+  const { signOut } = useContext(AuthContext)
   const [scrollNav, setScrollNav] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -32,6 +36,10 @@ const navbar: React.FC = () => {
     window.addEventListener('scroll', changeScrollNav)
   }, [])
 
+  const signOutSubmit = () => {
+    signOut()
+  }
+
   return (
     <>
       <MenuToggle isOpen={isOpen} toggle={toggle} />
@@ -45,7 +53,9 @@ const navbar: React.FC = () => {
 
           <NavMenu>
             <NavItem>
-              <NavLink href="#">logout</NavLink>
+              <NavLink onClick={signOutSubmit} href="#">
+                signOut
+              </NavLink>
             </NavItem>
           </NavMenu>
         </Wrapper>

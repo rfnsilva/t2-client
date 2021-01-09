@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Container = styled.nav<Props>`
-  background: #000;
+  background-color: #438f96;
   height: ${props => (props.scrollNav ? '60px' : '80px')};
   display: flex;
   justify-content: center;
@@ -62,7 +62,7 @@ export const NavMenu = styled.ul`
   align-items: center;
   list-style: none;
   text-align: center;
-  margin-right: -22px;
+  margin: 0;
   @media (max-width: 768px) {
     display: none;
   }

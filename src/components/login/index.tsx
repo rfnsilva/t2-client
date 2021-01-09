@@ -21,7 +21,7 @@ const login: React.FC = () => {
     const response = await signIn(user)
 
     if (response !== null) {
-      return history.push('/home')
+      return history.push('/')
     }
   }
 

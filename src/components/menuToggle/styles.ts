@@ -8,7 +8,7 @@ export const Container = styled.div<Props>`
   z-index: 99;
   width: 100%;
   height: 100%;
-  background: #0d0d0d;
+  background: #9bcfd4;
   display: grid;
   align-items: center;
   top: 0;
@@ -58,30 +58,5 @@ export const MenuLink = styled.a`
   &:hover {
     color: #eb533f;
     transition: 0.2s ease-in-out;
-  }
-`
-
-export const MenuBtnWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-// transformar isso em um link
-export const MenuBtn = styled.div`
-  border-radius: 50px;
-  background: #eb533f;
-  white-space: nowrap;
-  padding: 16px 64px;
-  color: #010606;
-  font-size: 16px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
   }
 `
