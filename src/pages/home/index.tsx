@@ -1,9 +1,17 @@
 import React from 'react'
 
-// import { Container } from './styles';
+import Table from '../../components/table'
+import Navbar from '../../components/navbar'
+
+import { Container } from './styles'
 
 const home: React.FC = () => {
-  return <h1>HOME PAGE</h1>
+  return (
+    <Container>
+      <Navbar />
+      <Table />
+    </Container>
+  )
 }
 
 export default home
