@@ -189,12 +189,12 @@ export const Container = styled.div`
     border-image-slice: 1;
   }
   /* reset input */
-  .form__field {
+  /* .form__field {
     &:required,
     &:invalid {
       box-shadow: none;
     }
-  }
+  } */
 
   .css-img-button {
     display: flex;
@@ -202,6 +202,18 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 97%;
+  }
+
+  input:valid {
+    box-shadow: none;
+  }
+
+  input:invalid {
+    box-shadow: 0 0 5px 1px #ff00008f;
+  }
+
+  input:focus:invalid {
+    box-shadow: none;
   }
 
   //CSS Button

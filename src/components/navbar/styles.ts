@@ -3,6 +3,9 @@ import styled from 'styled-components'
 interface Props {
   scrollNav: boolean
 }
+interface PropsJWT {
+  isOpenJWT: boolean
+}
 
 export const Container = styled.nav<Props>`
   background-color: #438f96;
@@ -57,19 +60,137 @@ export const MobileIcon = styled.div`
   }
 `
 
-export const NavMenu = styled.ul`
+export const NavMenu = styled.ul<PropsJWT>`
   display: flex;
   align-items: center;
   list-style: none;
   text-align: center;
   margin: 0;
+
+  .btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+
+  .nav-link:after {
+    content: none;
+  }
+
+  .nav-link {
+    color: #d1d3e2;
+    height: 4.375rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    position: relative;
+  }
+
+  .dropdown-item {
+    white-space: normal;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-left: 1px solid #e3e6f0;
+    border-right: 1px solid #e3e6f0;
+    border-bottom: 1px solid #e3e6f0;
+    line-height: 1.3rem;
+    align-items: center;
+
+    span {
+      word-break: break-word;
+    }
+  }
+
+  .dropdown-list {
+    padding: 0;
+    border: none;
+    overflow: hidden;
+  }
+
+  .shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  }
+
+  .jwt {
+    display: ${props => (props.isOpenJWT ? 'block' : 'none')};
+  }
+
+  .dropdown-header {
+    background-color: #296065;
+    border: 1px solid #1b3f42;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  .dropdown-menu {
+    width: calc(100% - 1.5rem);
+    right: 0.75rem;
+    position: absolute;
+    font-size: 0.85rem;
+  }
+
+  .nav-link:after {
+    content: none;
+  }
+
+  @media (min-width: 576px) {
+    .dropdown {
+      position: relative;
+    }
+  }
+
+  @media (min-width: 576px) and (max-width: 769px) {
+    .dropdown-list {
+      margin-top: 38px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .jwt {
+      width: 87vw;
+      position: absolute;
+      font-size: 0.85rem;
+      float: none;
+    }
+
+    .dropdown-list {
+      padding: 0;
+      border: none;
+      overflow: hidden;
+      margin-top: 40px !important;
+    }
+    .dropdown-menu {
+      right: 0;
+    }
+  }
+
   @media (max-width: 768px) {
-    display: none;
+    .dropdown-toggle {
+      display: none;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      width: auto;
+      right: 0;
+    }
+
+    .dropdown-list {
+      width: 20rem !important;
+    }
   }
 `
 
 export const NavItem = styled.li`
   height: 80px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 /* transformar isso em um link */
 export const NavLink = styled.a`

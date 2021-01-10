@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import AuthContext from '../../contexts/auth'
 
@@ -7,9 +7,10 @@ import { Container, Icon, CloseIcon, Wrapper, Menu, MenuLink } from './styles'
 export interface Props {
   isOpen?: boolean
   toggle?: any
+  toggleJWT?: any
 }
 
-const menuToggle: React.FC<Props> = ({ isOpen, toggle }) => {
+const menuToggle: React.FC<Props> = ({ isOpen, toggle, toggleJWT }) => {
   const { signOut } = useContext(AuthContext)
 
   const signOutSubmit = () => {
@@ -25,6 +26,9 @@ const menuToggle: React.FC<Props> = ({ isOpen, toggle }) => {
         <Menu>
           <MenuLink onClick={signOutSubmit} href="#">
             signOut
+          </MenuLink>
+          <MenuLink onClick={toggleJWT} href="#">
+            JWT
           </MenuLink>
         </Menu>
       </Wrapper>

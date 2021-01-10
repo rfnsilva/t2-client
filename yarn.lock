@@ -9653,6 +9653,11 @@ react-icons@^4.1.0:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.1.0.tgz#9ca9bcbf2e3aee8e86e378bb9d465842947bbfc3"
   integrity sha512-FCXBg1JbbR0vWALXIxmFAfozHdVIJmmwCD81Jk0EKOt7Ax4AdBNcaRkWhR0NaKy9ugJgoY3fFvo0PHpte55pXg==
 
+react-inputs-validation@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/react-inputs-validation/-/react-inputs-validation-4.6.2.tgz#3120a8db8dbf2e399241d034bee1a39f67d5c246"
+  integrity sha512-U5oBOEkT8gv1y+e4JzeTBp3hXgEcpj1t3DoekmU9CnXpsgGW7ca2uBxLbAALJ+XpvNRq0WV/0nPcjgy5E2o2xQ==
+
 react-is@^16.3.2, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

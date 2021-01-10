@@ -39,6 +39,7 @@ export const Menu = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, 80px);
+
   @media (max-width: 480px) {
     grid-template-rows: repeat(6, 68px);
   }

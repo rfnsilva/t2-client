@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-
 import AuthContext from '../../contexts/auth'
 
 import { Container } from './styles'
@@ -48,7 +47,7 @@ const login: React.FC = () => {
                       name="email"
                       id="email"
                       onChange={handleChange}
-                      required
+                      pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
                     />
                     <label htmlFor="email" className="form__label">
                       email
@@ -63,7 +62,7 @@ const login: React.FC = () => {
                       name="password"
                       id="password"
                       onChange={handleChange}
-                      required
+                      minLength={6}
                     />
                     <label htmlFor="password" className="form__label">
                       password
