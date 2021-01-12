@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../contexts/auth'
 
@@ -11,16 +11,26 @@ interface User {
 
 const login: React.FC = () => {
   const [user, setUser] = useState<User>({ email: '', password: '' })
-
+  const [error, setError] = useState({ emailError: '', passError: '' })
+  const inputEmail = useRef<HTMLInputElement>(null)
+  const inputPass = useRef<HTMLInputElement>(null)
   const { signIn } = useContext(AuthContext)
   const history = useHistory()
 
   // subimit form
   const SubmitForm = async () => {
-    const response = await signIn(user)
+    if (inputEmail?.current?.value === '' || inputPass.current?.value === '') {
+      alert('login ou password vazio')
+    } else {
+      if (error.emailError === '' && error.passError === '') {
+        const response = await signIn(user)
 
-    if (response !== null) {
-      return history.push('/')
+        if (response !== undefined) {
+          return history.push('/')
+        } else {
+          alert('login ou password incorreto')
+        }
+      }
     }
   }
 
@@ -28,6 +38,48 @@ const login: React.FC = () => {
     setUser({
       ...user,
       [event.target.name]: event.target.value
+    })
+  }
+
+  const validadEmail = () => {
+    const errors = { emailError: '' }
+
+    switch (true) {
+      case !user.email:
+        errors.emailError = 'email obrigatorio'
+        break
+      case !user.email.match(/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i):
+        errors.emailError = 'email mal formatado'
+        break
+      default:
+        errors.emailError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      emailError: errors.emailError
+    })
+  }
+
+  const validadPassword = () => {
+    const errors = { passError: '' }
+
+    switch (true) {
+      case !user.email:
+        errors.passError = 'senha obrigatoria'
+        break
+      case user.password.length <= 5:
+        errors.passError = 'minimo de 6 caracteres'
+        break
+      default:
+        errors.passError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      passError: errors.passError
     })
   }
 
@@ -46,9 +98,12 @@ const login: React.FC = () => {
                       placeholder="email"
                       name="email"
                       id="email"
+                      value={user.email}
+                      ref={inputEmail}
                       onChange={handleChange}
-                      pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                      onBlur={validadEmail}
                     />
+                    <div className="error">{error.emailError}</div>
                     <label htmlFor="email" className="form__label">
                       email
                     </label>
@@ -61,9 +116,12 @@ const login: React.FC = () => {
                       placeholder="password"
                       name="password"
                       id="password"
+                      value={user.password}
+                      ref={inputPass}
                       onChange={handleChange}
-                      minLength={6}
+                      onBlur={validadPassword}
                     />
+                    <div className="error">{error.passError}</div>
                     <label htmlFor="password" className="form__label">
                       password
                     </label>

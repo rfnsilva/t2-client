@@ -122,4 +122,16 @@ export const ContainerModal = styled.div`
       background: blue !important;
     }
   }
+
+  /* input:valid {
+    box-shadow: none;
+  }
+
+  input:invalid {
+    box-shadow: 0 0 5px 1px #ff00008f;
+  }
+
+  input:focus:invalid {
+    box-shadow: none;
+  } */
 `

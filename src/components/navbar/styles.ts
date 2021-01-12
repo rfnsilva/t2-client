@@ -197,13 +197,12 @@ export const NavLink = styled.a`
   color: #fff;
   display: flex;
   align-items: center;
-  text-decoration: none;
+  text-decoration: none !important;
   padding: 0 1rem;
   height: 100%;
+  outline: none;
+  text-decoration: none;
   cursor: pointer;
-  &:active {
-    border-bottom: 3px solid #eb533f;
-  }
   &:hover {
     transition: all 0.2s ease-in-out;
     color: #eb533f;

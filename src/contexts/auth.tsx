@@ -18,7 +18,7 @@ interface AuthContextData {
   signed: boolean
   token: IToken
   user: IUser | null
-  signIn(user: IUser): Promise<IUser | null>
+  signIn(user: IUser): Promise<IUser | undefined>
   signOut(): void
 }
 
@@ -43,18 +43,25 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   // função que realiza o cadastro
-  async function signIn(user: IUser): Promise<IUser> {
+  async function signIn(user: IUser): Promise<IUser | undefined> {
     const response = await Api.post('/session', {
       email: user.email,
       password: user.password
     })
 
-    setUser(response.data.user)
-    setToken(response.data.token)
-    localStorage.setItem('user', JSON.stringify(response.data.user))
-    localStorage.setItem('token', JSON.stringify(response.data.token))
+    if (
+      response.data.message !== 'error user not found' &&
+      response.data.message !== 'error password incorrect'
+    ) {
+      setUser(response.data.user)
+      setToken(response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      localStorage.setItem('token', JSON.stringify(response.data.token))
 
-    return response.data.user
+      return response.data.user
+    }
+
+    return undefined
   }
 
   async function signOut() {

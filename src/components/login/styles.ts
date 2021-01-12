@@ -64,59 +64,10 @@ export const Container = styled.div`
     -webkit-user-drag: none;
   }
 
-  .row2 .img-fluid {
-    margin: 10% 0;
-    opacity: 0.5;
-    width: 40%;
-  }
-
-  .card-2 .row {
-    justify-content: center;
-  }
-
-  .card-3 .row {
-    justify-content: center;
-  }
-
-  .row1 {
-    font-size: 0.7rem;
-    font-weight: bold;
-    color: black;
-  }
-
-  .row3 {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: black;
-  }
-
   @media (max-width: 400px) {
-    .row3 {
-      font-size: 0.7rem;
-      font-weight: bold;
-      color: black;
-    }
     .container {
       width: 100%;
     }
-  }
-
-  @media (max-width: 320px) {
-    .row3 {
-      font-size: 0.6rem;
-      font-weight: bold;
-      color: black;
-    }
-  }
-
-  .row4 {
-    font-size: 0.6rem;
-    color: rgb(196, 196, 196);
-    margin: 5% 0 2.5rem;
-  }
-
-  .card-3 .row3 {
-    margin: 5% 0 2.5rem;
   }
 
   .col {
@@ -125,6 +76,7 @@ export const Container = styled.div`
 
   .row {
     overflow: visible;
+    margin: 0;
   }
 
   //CSS Input
@@ -140,16 +92,16 @@ export const Container = styled.div`
 
   .form__field {
     font-family: inherit;
-    width: 100%;
+    width: 91%;
     border: 0;
     border-bottom: 2px solid $gray;
     outline: 0;
     font-size: 1.3rem;
-    color: $white;
+    color: #000;
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-    margin-left: 20px;
+    margin-left: 23px;
 
     &::placeholder {
       color: transparent;
@@ -169,7 +121,7 @@ export const Container = styled.div`
     transition: 0.2s;
     font-size: 1rem;
     color: $gray;
-    margin-left: 20px;
+    margin-left: 25px;
   }
 
   .form__field:focus {
@@ -204,16 +156,14 @@ export const Container = styled.div`
     width: 97%;
   }
 
-  input:valid {
-    box-shadow: none;
-  }
-
-  input:invalid {
-    box-shadow: 0 0 5px 1px #ff00008f;
-  }
-
-  input:focus:invalid {
-    box-shadow: none;
+  .error {
+    width: 100%;
+    color: red;
+    background: linear-gradient(
+      to right,
+      #ffffff 50%,
+      rgba(241, 224, 190, 0.507)
+    );
   }
 
   //CSS Button

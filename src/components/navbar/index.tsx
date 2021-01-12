@@ -43,7 +43,6 @@ const navbar: React.FC = () => {
   }
 
   const toggleJWT = () => {
-    console.log('aquii')
     const jwtToken = JSON.parse(localStorage.getItem('token') || '{}')
     setJWT(jwtToken)
     setIsOpenJWT(!isOpenJWT)
@@ -61,11 +60,6 @@ const navbar: React.FC = () => {
           </MobileIcon>
 
           <NavMenu isOpenJWT={isOpenJWT}>
-            <NavItem>
-              <NavLink onClick={signOutSubmit} href="#">
-                signOut
-              </NavLink>
-            </NavItem>
             <li className="nav-item dropdown no-arrow mx-1">
               <a
                 className="nav-link dropdown-toggle"
@@ -93,6 +87,11 @@ const navbar: React.FC = () => {
                 </div>
               </div>
             </li>
+            <NavItem>
+              <NavLink onClick={signOutSubmit} href="#">
+                signOut
+              </NavLink>
+            </NavItem>
           </NavMenu>
         </Wrapper>
       </Container>

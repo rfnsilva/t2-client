@@ -35,13 +35,6 @@ const table: React.FC = () => {
     getUserApi()
   }, [])
 
-  const deleteUser = useCallback(async id => {
-    const response = await Api.delete(`/deleteUser/${id}`, {
-      headers: { Authorization: `bearer ${token}` }
-    })
-    setUsers(response.data)
-  }, [])
-
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
@@ -49,39 +42,72 @@ const table: React.FC = () => {
     })
   }
 
+  const setUpdateUser = async (item: IUser) => {
+    setUser(item)
+  }
+
+  const deleteUser = useCallback(async id => {
+    if (confirm('confirm delete user ?')) {
+      const response = await Api.delete(`/deleteUser/${id}`, {
+        headers: { Authorization: `bearer ${token}` }
+      })
+      setUsers(response.data)
+    }
+  }, [])
+
   // subimit form update
   const SubmitFormUpdate = async (id: string) => {
-    const response = await Api.put(
-      `/updateUser/${id}`,
-      {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        cpf: user.cpf
-      },
-      {
-        headers: { Authorization: `bearer ${token}` }
-      }
-    )
-    setUsers(response.data)
+    if (
+      user.name === '' ||
+      user.email === '' ||
+      user.phone === '' ||
+      user.cpf === '' ||
+      user.password === ''
+    ) {
+      alert('insert correct data')
+    } else {
+      const response = await Api.put(
+        `/updateUser/${id}`,
+        {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          cpf: user.cpf
+        },
+        {
+          headers: { Authorization: `bearer ${token}` }
+        }
+      )
+      setUsers(response.data)
+    }
   }
 
   // subimit form create
   const SubmitFormCreate = async () => {
-    const response = await Api.post(
-      '/createUser',
-      {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        cpf: user.cpf,
-        password: user.password
-      },
-      {
-        headers: { Authorization: `bearer ${token}` }
-      }
-    )
-    setUsers(response.data)
+    if (
+      user.name === '' ||
+      user.email === '' ||
+      user.phone === '' ||
+      user.cpf === '' ||
+      user.password === ''
+    ) {
+      alert('insert correct data')
+    } else {
+      const response = await Api.post(
+        '/createUser',
+        {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          cpf: user.cpf,
+          password: user.password
+        },
+        {
+          headers: { Authorization: `bearer ${token}` }
+        }
+      )
+      setUsers(response.data)
+    }
   }
 
   return (
@@ -130,6 +156,7 @@ const table: React.FC = () => {
                       className="btn btn-secondary button-edit"
                       data-toggle="modal"
                       data-target="#modalExemplo"
+                      onClick={() => setUpdateUser(item)}
                     >
                       <FaUserEdit />
                     </button>
@@ -166,6 +193,7 @@ const table: React.FC = () => {
                               name="name"
                               className="form-control"
                               placeholder="name"
+                              value={user.name}
                               onChange={handleChange}
                               aria-label="Username"
                               aria-describedby="basic-addon1"
@@ -177,6 +205,7 @@ const table: React.FC = () => {
                               name="email"
                               className="form-control"
                               placeholder="email"
+                              value={user.email}
                               onChange={handleChange}
                               aria-label="email"
                               aria-describedby="basic-addon1"
@@ -188,6 +217,7 @@ const table: React.FC = () => {
                               name="phone"
                               className="form-control"
                               placeholder="phone"
+                              value={user.phone}
                               onChange={handleChange}
                               aria-label="phone"
                               aria-describedby="basic-addon1"
@@ -199,6 +229,7 @@ const table: React.FC = () => {
                               name="cpf"
                               className="form-control"
                               placeholder="cpf"
+                              value={user.cpf}
                               onChange={handleChange}
                               aria-label="cpf"
                               aria-describedby="basic-addon1"
@@ -214,7 +245,7 @@ const table: React.FC = () => {
                             Fechar
                           </button>
                           <button
-                            onClick={() => SubmitFormUpdate(item.id)}
+                            onClick={() => SubmitFormUpdate(user.id)}
                             type="button"
                             className="btn btn-primary"
                           >
@@ -246,79 +277,82 @@ const table: React.FC = () => {
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <div className="modal-body">
-                          <div className="input-group mb-3">
-                            <input
-                              type="text"
-                              name="name"
-                              className="form-control"
-                              placeholder="name"
-                              onChange={handleChange}
-                              aria-label="Username"
-                              aria-describedby="basic-addon1"
-                            />
+                        <form>
+                          <div className="modal-body">
+                            <div className="input-group mb-3">
+                              <input
+                                type="text"
+                                name="name"
+                                className="form-control"
+                                placeholder="name"
+                                onChange={handleChange}
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div className="input-group mb-3">
+                              <input
+                                type="email"
+                                name="email"
+                                className="form-control"
+                                placeholder="email"
+                                onChange={handleChange}
+                                aria-label="email"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div className="input-group mb-3">
+                              <input
+                                type="text"
+                                name="phone"
+                                className="form-control"
+                                placeholder="phone"
+                                onChange={handleChange}
+                                aria-label="phone"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div className="input-group mb-3">
+                              <input
+                                type="text"
+                                name="cpf"
+                                className="form-control"
+                                placeholder="cpf"
+                                onChange={handleChange}
+                                aria-label="cpf"
+                                aria-describedby="basic-addon1"
+                              />
+                            </div>
+                            <div className="input-group mb-3">
+                              <input
+                                type="password"
+                                name="password"
+                                className="form-control"
+                                placeholder="password"
+                                onChange={handleChange}
+                                aria-label="password"
+                                aria-describedby="basic-addon1"
+                                minLength={6}
+                              />
+                            </div>
                           </div>
-                          <div className="input-group mb-3">
-                            <input
-                              type="email"
-                              name="email"
-                              className="form-control"
-                              placeholder="email"
-                              onChange={handleChange}
-                              aria-label="email"
-                              aria-describedby="basic-addon1"
-                            />
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              Fechar
+                            </button>
+                            <button
+                              onClick={SubmitFormCreate}
+                              type="button"
+                              className="btn btn-primary"
+                            >
+                              Salvar
+                            </button>
                           </div>
-                          <div className="input-group mb-3">
-                            <input
-                              type="text"
-                              name="phone"
-                              className="form-control"
-                              placeholder="phone"
-                              onChange={handleChange}
-                              aria-label="phone"
-                              aria-describedby="basic-addon1"
-                            />
-                          </div>
-                          <div className="input-group mb-3">
-                            <input
-                              type="text"
-                              name="cpf"
-                              className="form-control"
-                              placeholder="cpf"
-                              onChange={handleChange}
-                              aria-label="cpf"
-                              aria-describedby="basic-addon1"
-                            />
-                          </div>
-                          <div className="input-group mb-3">
-                            <input
-                              type="password"
-                              name="password"
-                              className="form-control"
-                              placeholder="password"
-                              onChange={handleChange}
-                              aria-label="password"
-                              aria-describedby="basic-addon1"
-                            />
-                          </div>
-                        </div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-dismiss="modal"
-                          >
-                            Fechar
-                          </button>
-                          <button
-                            onClick={SubmitFormCreate}
-                            type="button"
-                            className="btn btn-primary"
-                          >
-                            Salvar
-                          </button>
-                        </div>
+                        </form>
                       </div>
                     </div>
                   </div>
