@@ -15,6 +15,7 @@ const login: React.FC = () => {
   const inputEmail = useRef<HTMLInputElement>(null)
   const inputPass = useRef<HTMLInputElement>(null)
   const { signIn } = useContext(AuthContext)
+
   const history = useHistory()
 
   // subimit form
@@ -66,7 +67,7 @@ const login: React.FC = () => {
     const errors = { passError: '' }
 
     switch (true) {
-      case !user.email:
+      case !user.password:
         errors.passError = 'senha obrigatoria'
         break
       case user.password.length <= 5:

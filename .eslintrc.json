@@ -33,6 +33,7 @@
     "no-use-before-define": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "multiline-ternary": ["off"],
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

@@ -123,15 +123,13 @@ export const ContainerModal = styled.div`
     }
   }
 
-  /* input:valid {
-    box-shadow: none;
+  .error {
+    width: 100%;
+    color: red;
+    background: linear-gradient(
+      to right,
+      #ffffff 50%,
+      rgba(241, 224, 190, 0.507)
+    );
   }
-
-  input:invalid {
-    box-shadow: 0 0 5px 1px #ff00008f;
-  }
-
-  input:focus:invalid {
-    box-shadow: none;
-  } */
 `

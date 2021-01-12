@@ -21,7 +21,15 @@ const table: React.FC = () => {
     email: '',
     name: '',
     cpf: '',
-    phone: ''
+    phone: '',
+    password: ''
+  })
+  const [error, setError] = useState({
+    emailError: '',
+    nameError: '',
+    cpfError: '',
+    phoneError: '',
+    passError: ''
   })
 
   useEffect(() => {
@@ -61,28 +69,33 @@ const table: React.FC = () => {
       user.name === '' ||
       user.email === '' ||
       user.phone === '' ||
-      user.cpf === '' ||
-      user.password === ''
+      user.cpf === ''
     ) {
-      alert('insert correct data')
+      alert('algum campo ficou vazio')
     } else {
-      const response = await Api.put(
-        `/updateUser/${id}`,
-        {
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          cpf: user.cpf
-        },
-        {
-          headers: { Authorization: `bearer ${token}` }
-        }
-      )
-      setUsers(response.data)
+      if (
+        error.emailError === '' &&
+        error.phoneError === '' &&
+        error.cpfError === ''
+      ) {
+        const response = await Api.put(
+          `/updateUser/${id}`,
+          {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            cpf: user.cpf
+          },
+          {
+            headers: { Authorization: `bearer ${token}` }
+          }
+        )
+        setUsers(response.data)
+      }
     }
   }
 
-  // subimit form create
+  // submit form create
   const SubmitFormCreate = async () => {
     if (
       user.name === '' ||
@@ -93,21 +106,130 @@ const table: React.FC = () => {
     ) {
       alert('insert correct data')
     } else {
-      const response = await Api.post(
-        '/createUser',
-        {
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          cpf: user.cpf,
-          password: user.password
-        },
-        {
-          headers: { Authorization: `bearer ${token}` }
-        }
-      )
-      setUsers(response.data)
+      if (
+        error.emailError === '' &&
+        error.phoneError === '' &&
+        error.cpfError === '' &&
+        error.passError === ''
+      ) {
+        const response = await Api.post(
+          '/createUser',
+          {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            cpf: user.cpf,
+            password: user.password
+          },
+          {
+            headers: { Authorization: `bearer ${token}` }
+          }
+        )
+        setUsers(response.data)
+      }
     }
+  }
+
+  const validadName = () => {
+    const errors = { nameError: '' }
+
+    switch (true) {
+      case !user.name:
+        errors.nameError = 'nome obrigatorio'
+        break
+      default:
+        errors.nameError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      nameError: errors.nameError
+    })
+  }
+
+  const validadEmail = () => {
+    const errors = { emailError: '' }
+
+    switch (true) {
+      case !user.email:
+        errors.emailError = 'email obrigatorio'
+        break
+      case !user.email.match(/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i):
+        errors.emailError = 'email mal formatado(ex@ex.com)'
+        break
+      default:
+        errors.emailError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      emailError: errors.emailError
+    })
+  }
+
+  const validadCpf = () => {
+    const errors = { cpfError: '' }
+
+    switch (true) {
+      case !user.cpf:
+        errors.cpfError = 'cpf obrigatorio'
+        break
+      case !user.cpf.match(/(\d{3})(\d{3})(\d{3})(\d{2})/):
+        errors.cpfError = 'cpf mal formatado(12345678912)'
+        break
+      default:
+        errors.cpfError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      cpfError: errors.cpfError
+    })
+  }
+
+  const validadPhone = () => {
+    const errors = { phoneError: '' }
+
+    switch (true) {
+      case !user.phone:
+        errors.phoneError = 'phone obrigatorio'
+        break
+      case !user.phone.match(/^([0-9]{2})([0-9]{4,5})([0-9]{4})$/):
+        errors.phoneError = 'phone mal formatado(73999025453)'
+        break
+      default:
+        errors.phoneError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      phoneError: errors.phoneError
+    })
+  }
+
+  const validadPassword = () => {
+    const errors = { passError: '' }
+
+    switch (true) {
+      case !user.password:
+        errors.passError = 'senha obrigatoria'
+        break
+      case user.password!.length <= 5:
+        errors.passError = 'minimo de 6 caracteres'
+        break
+      default:
+        errors.passError = ''
+        break
+    }
+
+    setError({
+      ...error,
+      passError: errors.passError
+    })
   }
 
   return (
@@ -164,6 +286,7 @@ const table: React.FC = () => {
                 </li>
 
                 <ContainerModal>
+                  {/* MODAL UPDATE USER */}
                   <div
                     className="modal fade"
                     id="modalExemplo"
@@ -194,10 +317,12 @@ const table: React.FC = () => {
                               className="form-control"
                               placeholder="name"
                               value={user.name}
+                              onBlur={validadName}
                               onChange={handleChange}
                               aria-label="Username"
                               aria-describedby="basic-addon1"
                             />
+                            <div className="error">{error.nameError}</div>
                           </div>
                           <div className="input-group mb-3">
                             <input
@@ -206,10 +331,12 @@ const table: React.FC = () => {
                               className="form-control"
                               placeholder="email"
                               value={user.email}
+                              onBlur={validadEmail}
                               onChange={handleChange}
                               aria-label="email"
                               aria-describedby="basic-addon1"
                             />
+                            <div className="error">{error.emailError}</div>
                           </div>
                           <div className="input-group mb-3">
                             <input
@@ -218,10 +345,12 @@ const table: React.FC = () => {
                               className="form-control"
                               placeholder="phone"
                               value={user.phone}
+                              onBlur={validadPhone}
                               onChange={handleChange}
                               aria-label="phone"
                               aria-describedby="basic-addon1"
                             />
+                            <div className="error">{error.phoneError}</div>
                           </div>
                           <div className="input-group mb-3">
                             <input
@@ -230,10 +359,12 @@ const table: React.FC = () => {
                               className="form-control"
                               placeholder="cpf"
                               value={user.cpf}
+                              onBlur={validadCpf}
                               onChange={handleChange}
                               aria-label="cpf"
                               aria-describedby="basic-addon1"
                             />
+                            <div className="error">{error.cpfError}</div>
                           </div>
                         </div>
                         <div className="modal-footer">
@@ -255,6 +386,8 @@ const table: React.FC = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* MODAL CREATE USER */}
                   <div
                     className="modal fade"
                     id="modalExemplo1"
@@ -285,10 +418,12 @@ const table: React.FC = () => {
                                 name="name"
                                 className="form-control"
                                 placeholder="name"
+                                onBlur={validadName}
                                 onChange={handleChange}
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                               />
+                              <div className="error">{error.nameError}</div>
                             </div>
                             <div className="input-group mb-3">
                               <input
@@ -296,10 +431,12 @@ const table: React.FC = () => {
                                 name="email"
                                 className="form-control"
                                 placeholder="email"
+                                onBlur={validadEmail}
                                 onChange={handleChange}
                                 aria-label="email"
                                 aria-describedby="basic-addon1"
                               />
+                              <div className="error">{error.emailError}</div>
                             </div>
                             <div className="input-group mb-3">
                               <input
@@ -307,10 +444,12 @@ const table: React.FC = () => {
                                 name="phone"
                                 className="form-control"
                                 placeholder="phone"
+                                onBlur={validadPhone}
                                 onChange={handleChange}
                                 aria-label="phone"
                                 aria-describedby="basic-addon1"
                               />
+                              <div className="error">{error.phoneError}</div>
                             </div>
                             <div className="input-group mb-3">
                               <input
@@ -318,10 +457,12 @@ const table: React.FC = () => {
                                 name="cpf"
                                 className="form-control"
                                 placeholder="cpf"
+                                onBlur={validadCpf}
                                 onChange={handleChange}
                                 aria-label="cpf"
                                 aria-describedby="basic-addon1"
                               />
+                              <div className="error">{error.cpfError}</div>
                             </div>
                             <div className="input-group mb-3">
                               <input
@@ -330,10 +471,12 @@ const table: React.FC = () => {
                                 className="form-control"
                                 placeholder="password"
                                 onChange={handleChange}
+                                onBlur={validadPassword}
                                 aria-label="password"
                                 aria-describedby="basic-addon1"
                                 minLength={6}
                               />
+                              <div className="error">{error.passError}</div>
                             </div>
                           </div>
                           <div className="modal-footer">
